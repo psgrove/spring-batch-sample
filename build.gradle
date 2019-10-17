@@ -12,14 +12,15 @@ repositories {
     mavenCentral()
 }
 
-configurations.all {
+//Breaks Spring
+/*configurations.all {
     resolutionStrategy.eachDependency { DependencyResolveDetails details ->
         if (details.requested.group == 'com.fasterxml.jackson.core' && details.requested.name == 'jackson-databind' ) {
             details.useVersion '2.10.0'
             details.because 'Security fixes'
         }
     }
-}
+}*/
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
