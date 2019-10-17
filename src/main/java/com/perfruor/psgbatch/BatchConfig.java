@@ -11,6 +11,7 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.repository.support.JobRepositoryFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.batch.BasicBatchConfigurer;
 import org.springframework.boot.autoconfigure.batch.BatchProperties;
 import org.springframework.boot.autoconfigure.transaction.TransactionManagerCustomizers;
@@ -43,6 +44,9 @@ public class BatchConfig extends BasicBatchConfigurer {
 
     @Autowired
     private JobLauncher jobLauncher;
+
+    @Value("${spring.batch.isolation.level}")
+    private String dbIsolationLevel;
 
     /**
      * Create a new {@link BasicBatchConfigurer} instance.
@@ -89,7 +93,7 @@ public class BatchConfig extends BasicBatchConfigurer {
         JobRepositoryFactoryBean factory = new JobRepositoryFactoryBean();
         factory.setDataSource(dataSource);
         factory.setTransactionManager(transactionManager);
-        factory.setIsolationLevelForCreate("ISOLATION_READ_COMMITTED");
+        factory.setIsolationLevelForCreate(dbIsolationLevel);
         return factory.getObject();
     }
 
