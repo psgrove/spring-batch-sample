@@ -45,7 +45,7 @@ public class BatchConfig extends BasicBatchConfigurer {
     @Autowired
     private JobLauncher jobLauncher;
 
-    @Value("${spring.batch.isolation.level}")
+    @Value("${spring.batch.isolation.level:ISOLATION_SERIALIZABLE}")
     private String dbIsolationLevel;
 
     /**
